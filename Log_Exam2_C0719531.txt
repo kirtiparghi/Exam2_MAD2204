@@ -509,4 +509,284 @@ MariaDB [examc0719531]> select s.ShipmentDate,p.name,p.coordinates from shipment
 +--------------+------+----------------+
 1 row in set (0.00 sec)
 
-MariaDB [examc0719531]> 
+MariaDB [examc0719531]> select c.name from client c, package p where c.accountnumber = p.recipient and p.contents='Undeclared';
++-----------------+
+| name            |
++-----------------+
+| Al Gore's Head  |
+| Barbados Slim   |
+| Ogden Wernstrom |
+| Zapp Brannigan  |
+| Barbados Slim   |
+| Leo Wong        |
+| Al Gore's Head  |
+| Zapp Brannigan  |
++-----------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | NULL                                                                    |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | NULL                                                                    |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | NULL                                                                    |
+|          5 | John A. Zoidberg         | Physician    |     25 | NULL                                                                    |
+|          6 | Amy Wong                 | Intern       |   5000 | NULL                                                                    |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | NULL                                                                    |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | NULL                                                                    |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select concat('$',salary,'.00') from employee;
++--------------------------+
+| concat('$',salary,'.00') |
++--------------------------+
+| $7500.00                 |
+| $10000.00                |
+| $7500.00                 |
+| $20000.00                |
+| $25.00                   |
+| $5000.00                 |
+| $10000.00                |
+| $5000.00                 |
++--------------------------+
+8 rows in set (0.03 sec)
+
+MariaDB [examc0719531]> select concat('$',salary,'.00'),name,position,remarks from employee;
++--------------------------+--------------------------+--------------+-------------------------------------------------------------------------+
+| concat('$',salary,'.00') | name                     | position     | remarks                                                                 |
++--------------------------+--------------------------+--------------+-------------------------------------------------------------------------+
+| $7500.00                 | Phillip J. Fry           | Delivery boy | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+| $10000.00                | Turanga Leela            | Captain      | NULL                                                                    |
+| $7500.00                 | Bender Bending Rodriguez | Robot        | NULL                                                                    |
+| $20000.00                | Hubert J. Farnsworth     | CEO          | NULL                                                                    |
+| $25.00                   | John A. Zoidberg         | Physician    | NULL                                                                    |
+| $5000.00                 | Amy Wong                 | Intern       | NULL                                                                    |
+| $10000.00                | Hermes Conrad            | Bureaucrat   | NULL                                                                    |
+| $5000.00                 | Scruffy Scruffington     | Janitor      | NULL                                                                    |
++--------------------------+--------------------------+--------------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select name,position,remarks,concat('$',salary,'.00') from employee;
++--------------------------+--------------+-------------------------------------------------------------------------+--------------------------+
+| name                     | position     | remarks                                                                 | concat('$',salary,'.00') |
++--------------------------+--------------+-------------------------------------------------------------------------+--------------------------+
+| Phillip J. Fry           | Delivery boy | Not to be confused with the Philip J. Fry from Hovering Squid World 97a | $7500.00                 |
+| Turanga Leela            | Captain      | NULL                                                                    | $10000.00                |
+| Bender Bending Rodriguez | Robot        | NULL                                                                    | $7500.00                 |
+| Hubert J. Farnsworth     | CEO          | NULL                                                                    | $20000.00                |
+| John A. Zoidberg         | Physician    | NULL                                                                    | $25.00                   |
+| Amy Wong                 | Intern       | NULL                                                                    | $5000.00                 |
+| Hermes Conrad            | Bureaucrat   | NULL                                                                    | $10000.00                |
+| Scruffy Scruffington     | Janitor      | NULL                                                                    | $5000.00                 |
++--------------------------+--------------+-------------------------------------------------------------------------+--------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select * from remarks;
+ERROR 1146 (42S02): Table 'examc0719531.remarks' doesn't exist
+MariaDB [examc0719531]> select * from remark;
+ERROR 1146 (42S02): Table 'examc0719531.remark' doesn't exist
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | NULL                                                                    |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | NULL                                                                    |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | NULL                                                                    |
+|          5 | John A. Zoidberg         | Physician    |     25 | NULL                                                                    |
+|          6 | Amy Wong                 | Intern       |   5000 | NULL                                                                    |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | NULL                                                                    |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | NULL                                                                    |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> update employee set remarks='Now having remarks' where remarks=NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | NULL                                                                    |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | NULL                                                                    |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | NULL                                                                    |
+|          5 | John A. Zoidberg         | Physician    |     25 | NULL                                                                    |
+|          6 | Amy Wong                 | Intern       |   5000 | NULL                                                                    |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | NULL                                                                    |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | NULL                                                                    |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> update employee set remarks='Now having remarks' where remarks='';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | NULL                                                                    |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | NULL                                                                    |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | NULL                                                                    |
+|          5 | John A. Zoidberg         | Physician    |     25 | NULL                                                                    |
+|          6 | Amy Wong                 | Intern       |   5000 | NULL                                                                    |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | NULL                                                                    |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | NULL                                                                    |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> update employee set remarks='Now having remarks' where remarks=NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | NULL                                                                    |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | NULL                                                                    |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | NULL                                                                    |
+|          5 | John A. Zoidberg         | Physician    |     25 | NULL                                                                    |
+|          6 | Amy Wong                 | Intern       |   5000 | NULL                                                                    |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | NULL                                                                    |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | NULL                                                                    |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> desc employee;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| employeeId | int(11) | NO   | PRI | NULL    | auto_increment |
+| name       | text    | NO   |     | NULL    |                |
+| position   | text    | NO   |     | NULL    |                |
+| salary     | int(11) | NO   |     | NULL    |                |
+| remarks    | text    | YES  |     | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> update employee set remarks='Now having remarks' where remarks IS NULL;
+Query OK, 7 rows affected (0.11 sec)
+Rows matched: 7  Changed: 7  Warnings: 0
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | Now having remarks                                                      |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | Now having remarks                                                      |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | Now having remarks                                                      |
+|          5 | John A. Zoidberg         | Physician    |     25 | Now having remarks                                                      |
+|          6 | Amy Wong                 | Intern       |   5000 | Now having remarks                                                      |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | Now having remarks                                                      |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | Now having remarks                                                      |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select * from employee;
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+| employeeId | name                     | position     | salary | remarks                                                                 |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+|          1 | Phillip J. Fry           | Delivery boy |   7500 | Not to be confused with the Philip J. Fry from Hovering Squid World 97a |
+|          2 | Turanga Leela            | Captain      |  10000 | Now having remarks                                                      |
+|          3 | Bender Bending Rodriguez | Robot        |   7500 | Now having remarks                                                      |
+|          4 | Hubert J. Farnsworth     | CEO          |  20000 | Now having remarks                                                      |
+|          5 | John A. Zoidberg         | Physician    |     25 | Now having remarks                                                      |
+|          6 | Amy Wong                 | Intern       |   5000 | Now having remarks                                                      |
+|          7 | Hermes Conrad            | Bureaucrat   |  10000 | Now having remarks                                                      |
+|          8 | Scruffy Scruffington     | Janitor      |   5000 | Now having remarks                                                      |
++------------+--------------------------+--------------+--------+-------------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select concat(name,' is ',position,' and earns ','$',salary,'.00/month') from employee;
++-------------------------------------------------------------------+
+| concat(name,' is ',position,' and earns ','$',salary,'.00/month') |
++-------------------------------------------------------------------+
+| Phillip J. Fry is Delivery boy and earns $7500.00/month           |
+| Turanga Leela is Captain and earns $10000.00/month                |
+| Bender Bending Rodriguez is Robot and earns $7500.00/month        |
+| Hubert J. Farnsworth is CEO and earns $20000.00/month             |
+| John A. Zoidberg is Physician and earns $25.00/month              |
+| Amy Wong is Intern and earns $5000.00/month                       |
+| Hermes Conrad is Bureaucrat and earns $10000.00/month             |
+| Scruffy Scruffington is Janitor and earns $5000.00/month          |
++-------------------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select * from shipment;
++------------+--------------+---------+----------+
+| ShipmentId | ShipmentDate | Manager | PlanetId |
++------------+--------------+---------+----------+
+|          1 | 3004-05-11   |       1 |        1 |
+|          2 | 3004-05-11   |       1 |        2 |
+|          3 | NULL         |       2 |        3 |
+|          4 | NULL         |       2 |        4 |
+|          5 | NULL         |       7 |        5 |
++------------+--------------+---------+----------+
+5 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2017-09-18 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [examc0719531]> update shipment set ShipmentDate=curdate() where ShipmentDate IS NULL;
+Query OK, 3 rows affected (0.08 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [examc0719531]> select * from shipment;
++------------+--------------+---------+----------+
+| ShipmentId | ShipmentDate | Manager | PlanetId |
++------------+--------------+---------+----------+
+|          1 | 3004-05-11   |       1 |        1 |
+|          2 | 3004-05-11   |       1 |        2 |
+|          3 | 2017-09-18   |       2 |        3 |
+|          4 | 2017-09-18   |       2 |        4 |
+|          5 | 2017-09-18   |       7 |        5 |
++------------+--------------+---------+----------+
+5 rows in set (0.00 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v1 as select e.position,e.remarks,s.ShipmentDate,p.name,p.coordinates from employee e,shipment s,planet p where e.employeeId = s.Manager and s.PlanetId = p.planetId and e.name = 'Turanga Leela';
+ERROR 1050 (42S01): Table 'v1' already exists
+MariaDB [examc0719531]> drop view v1;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v1 as select e.position,e.remarks,s.ShipmentDate,p.name,p.coordinates from employee e,shipment s,planet p where e.employeeId = s.Manager and s.PlanetId = p.planetId and e.name = 'Turanga Leela';
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> drop view v2;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v2 as select p.packageNumber,p.contents,p.weight,c.name,c.accountnumber from package p, client c where p.recipient = c.accountnumber and p.recipient in(1,5,6);
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v3 as select e.name from employee e,planet p,has_clearance h where e.employeeId=h.employee and p.planetId=h.planet;
+ERROR 1050 (42S01): Table 'v3' already exists
+MariaDB [examc0719531]> drop view v3;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v3 as select e.name from employee e,planet p,has_clearance h where e.employeeId=h.employee and p.planetId=h.planet;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v4 as select e.name,s.ShipmentDate from employee e, shipment s, package p where e.employeeId = p.sender and s.ShipmentId = p.shipment and weight between 5 and 10;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v5 as select s.ShipmentDate,p.name,p.coordinates from shipment s, planet p where p.planetId=s.PlanetId and (p.name='Mars' or p.name='Amazonia');
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v6 as select c.name from client c, package p where c.accountnumber = p.recipient and p.contents='Undeclared';
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [examc0719531]> CREATE VIEW v7 as select name,position,remarks,concat('$',salary,'.00') from employee;
+Query OK, 0 rows affected (0.05 sec)
